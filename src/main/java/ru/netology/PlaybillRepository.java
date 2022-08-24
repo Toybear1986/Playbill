@@ -3,18 +3,14 @@ package ru.netology;
 public class PlaybillRepository {
   private PlaybillPoster[] items = new PlaybillPoster[0];
 
-  public PlaybillPoster[] findAll() {
+  public PlaybillRepository() {
+  }
+
+  protected PlaybillPoster[] findAll() {
     return items;
   }
 
-  public void save(PlaybillPoster poster) {
-    PlaybillPoster[] tmp = new PlaybillPoster[items.length + 1];
-    System.arraycopy(items, 0, tmp, 0, items.length);
-    tmp[tmp.length - 1] = poster;
-    items = tmp;
-  }
-
-  public PlaybillPoster findById(int id) {
+  protected PlaybillPoster findById(int id) {
     for (PlaybillPoster item : items) {
       if (id == item.getId()) {
         return item;
@@ -23,7 +19,7 @@ public class PlaybillRepository {
     return null;
   }
 
-  public void removeById(int id) {
+  protected void removeById(int id) {
     PlaybillPoster[] tmp = new PlaybillPoster[items.length - 1];
     int copyToIndex = 0;
     for (PlaybillPoster item : items) {
@@ -35,12 +31,18 @@ public class PlaybillRepository {
     items = tmp;
   }
 
-  public void removeAll() {
-    PlaybillPoster[] empty = {};
-    items = empty;    
+  protected void save(PlaybillPoster poster) {
+    PlaybillPoster[] tmp = new PlaybillPoster[items.length + 1];
+    System.arraycopy(items, 0, tmp, 0, items.length);
+    tmp[tmp.length - 1] = poster;
+    items = tmp;
   }
 
-  public PlaybillPoster[] getItems() {
+  protected void removeAll() {
+    items = new PlaybillPoster[]{};
+  }
+
+  protected PlaybillPoster[] getItems() {
     return items;
   }
 }

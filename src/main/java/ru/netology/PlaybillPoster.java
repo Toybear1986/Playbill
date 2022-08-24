@@ -3,12 +3,11 @@ package ru.netology;
 public class PlaybillPoster {
   private int id;
 
-  public PlaybillPoster(String imageUrl, String filmName, String genre, boolean premiereTomorrow, int id) {
-
+  protected PlaybillPoster(String imageUrl, String filmName, String genre, boolean premiereTomorrow, int id) {
     this.id = id;
   }
 
-  public int getId() {
+  protected int getId() {
     return id;
   }
 }

@@ -34,25 +34,14 @@ public class PlayBillManagerTest {
 
     Assertions.assertArrayEquals(expectedArray9, actualArray9);
 
+    PlaybillPoster[] expectedArray8 = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
+    PlaybillPoster[] actualArray8 = manager.findLast(manager.limit);
+
+    Assertions.assertArrayEquals(expectedArray8, actualArray8);
+
     PlaybillPoster[] expectedArray10 = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
     PlaybillPoster[] actualArray10 = manager.findLast();
 
     Assertions.assertArrayEquals(expectedArray10, actualArray10);
-
-
-
-
-
-
-/*    PlaybillPoster[] items = {poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
-    doReturn(items).when(repo).findAll();
-
-    PlaybillPoster[] expected = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
-    PlaybillPoster[] actual = manager.findLast();
-    Assertions.assertArrayEquals(expected, actual);
-
-    PlaybillPoster[] expectedArray5 = {poster11, poster10, poster9, poster8, poster7};
-    PlaybillPoster[] actualArray5 = manager.findLast(5);
-    Assertions.assertArrayEquals(expectedArray5, actualArray5);*/
   }
 }

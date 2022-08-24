@@ -1,18 +1,25 @@
 package ru.netology;
 
 public class PlaybillManager {
+
+  protected int limit = 10;
   private PlaybillRepository repo;
 
-  public PlaybillManager(PlaybillRepository repo) {
+  protected PlaybillManager() {
+  }
+
+  protected PlaybillManager(int limit) {
+    this.limit = limit;
+  }
+
+  protected PlaybillManager(PlaybillRepository repo) {
     this.repo = repo;
   }
 
-  public int lastNumber = 10;
-
-  public PlaybillPoster[] findLast() {
+  protected PlaybillPoster[] findLast() {
     PlaybillPoster[] all = repo.getItems();
-    int resultLength;
-    resultLength = lastNumber;
+    new PlaybillManager();
+    int resultLength = limit;
     PlaybillPoster[] reversed = new PlaybillPoster[resultLength];
     for (int i = 0; i < reversed.length; i++) {
       reversed[i] = all[all.length - 1 - i];
@@ -20,9 +27,10 @@ public class PlaybillManager {
     return reversed;
   }
 
-  public PlaybillPoster[] findLast(int lastNumber) {
+  protected PlaybillPoster[] findLast(int limit) {
     PlaybillPoster[] all = repo.getItems();
-    int resultLength = Math.min(lastNumber, 10);
+    new PlaybillManager(limit);
+    int resultLength = Math.min(limit, 10);
     PlaybillPoster[] reversed = new PlaybillPoster[resultLength];
     for (int i = 0; i < reversed.length; i++) {
       reversed[i] = all[all.length - 1 - i];
