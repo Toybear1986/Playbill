@@ -51,11 +51,13 @@ public class PlayBillRepoTest {
     repo.removeAll();
     PlaybillPoster[] emptyArray = {};
     Assertions.assertArrayEquals(emptyArray, repo.getItems());
+
+    Assertions.assertEquals(null, repo.findById(12));
   }
 
   @Test
   public void NullExceptions() {
-    doReturn(null).when(mock).findById(11); //Пробуем поискать несуществующий Id
+    doReturn(null).when(mock).findById(12); //Пробуем поискать несуществующий Id
     doNothing().when(mock).removeById(4); // Пробуем удалить из пустого массива
   }
 }
