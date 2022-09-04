@@ -2,14 +2,8 @@ package ru.netology;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import static org.mockito.Mockito.doReturn;
 
 public class PlayBillManagerTest {
-
-  PlaybillRepository mockOfRepo = Mockito.mock(PlaybillRepository.class);
-  PlaybillRepository repo = new PlaybillRepository();
   PlaybillPoster poster1 = new PlaybillPoster("link1", "Test1", "Боевик", false, 1);
   PlaybillPoster poster2 = new PlaybillPoster("link2", "Test2", "Боевик", false, 2);
   PlaybillPoster poster3 = new PlaybillPoster("link3", "Test3", "Боевик", false, 3);
@@ -23,34 +17,79 @@ public class PlayBillManagerTest {
   PlaybillPoster poster11 = new PlaybillPoster("link11", "Test11", "Боевик", false, 11);
 
   @Test
-  public void managerVariablesTest() {
-    repo.save(poster1);
-    repo.save(poster2);
-    repo.save(poster3);
-    repo.save(poster4);
-    repo.save(poster5);
-    repo.save(poster6);
-    repo.save(poster7);
-    repo.save(poster8);
-    repo.save(poster9);
-    repo.save(poster10);
-    repo.save(poster11);
+  public void testFinAll() {
+    PlaybillManager allPosters = new PlaybillManager();
+    allPosters.save(poster1);
+    allPosters.save(poster2);
+    allPosters.save(poster3);
+    allPosters.save(poster4);
+    allPosters.save(poster5);
+    allPosters.save(poster6);
+    allPosters.save(poster7);
+    allPosters.save(poster8);
+    allPosters.save(poster9);
+    allPosters.save(poster10);
+    allPosters.save(poster11);
 
-    PlaybillManager manager = new PlaybillManager(9, repo);
-    PlaybillPoster[] expectedArray9 = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3};
-    PlaybillPoster[] actualArray9 = manager.findLast();
+    PlaybillPoster[] expectedObverse = {poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
 
-    Assertions.assertArrayEquals(expectedArray9, actualArray9);
+    Assertions.assertArrayEquals(expectedObverse, allPosters.findAll());
+  }
+  @Test
+  public void test() {
+    PlaybillManager allPosters = new PlaybillManager();
+    allPosters.save(poster1);
+    allPosters.save(poster2);
+    allPosters.save(poster3);
+    allPosters.save(poster4);
+    allPosters.save(poster5);
+    allPosters.save(poster6);
+    allPosters.save(poster7);
+    allPosters.save(poster8);
+    allPosters.save(poster9);
+    allPosters.save(poster10);
+    allPosters.save(poster11);
 
-    PlaybillManager manager2 = new PlaybillManager(repo);
-    PlaybillPoster[] expectedArray10 = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
-    PlaybillPoster[] actualArray10 = manager2.findLast();
-    Assertions.assertArrayEquals(expectedArray10, actualArray10);
+
+    PlaybillPoster[] expectedReverseDefaultLastNumber = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
+    Assertions.assertArrayEquals(expectedReverseDefaultLastNumber, allPosters.findLast());
   }
 
   @Test
-  public void test() {
-    PlaybillPoster[] items = {poster1, poster2, poster3, poster4, poster5, poster6, poster7, poster8, poster9, poster10, poster11};
-    doReturn(items).when(mockOfRepo).getItems();
+  public void testFindLastCustomLimit5() {
+    PlaybillManager allPosters = new PlaybillManager();
+    allPosters.save(poster1);
+    allPosters.save(poster2);
+    allPosters.save(poster3);
+    allPosters.save(poster4);
+    allPosters.save(poster5);
+    allPosters.save(poster6);
+    allPosters.save(poster7);
+    allPosters.save(poster8);
+    allPosters.save(poster9);
+    allPosters.save(poster10);
+    allPosters.save(poster11);
+
+    PlaybillPoster[] expectedReverseInsertedLastNumberInLimit = {poster11, poster10, poster9, poster8, poster7};
+    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberInLimit, allPosters.findLast(5));
+  }
+
+  @Test
+  public void testFindLastCustomLimit11() {
+    PlaybillManager allPosters = new PlaybillManager();
+    allPosters.save(poster1);
+    allPosters.save(poster2);
+    allPosters.save(poster3);
+    allPosters.save(poster4);
+    allPosters.save(poster5);
+    allPosters.save(poster6);
+    allPosters.save(poster7);
+    allPosters.save(poster8);
+    allPosters.save(poster9);
+    allPosters.save(poster10);
+    allPosters.save(poster11);
+
+    PlaybillPoster[] expectedReverseInsertedLastNumberOverLimit = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
+    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberOverLimit, allPosters.findLast(11));
   }
 }
