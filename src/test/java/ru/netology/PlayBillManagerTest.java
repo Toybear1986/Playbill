@@ -57,7 +57,7 @@ public class PlayBillManagerTest {
   }
 
   @Test
-  public void testFindLastIfArrayLowThanDefaultLimit() { // Если дефолтный лимит и фильмов больше
+  public void testFindLastIfArrayLowThanDefaultLimit() { // Если дефолтный лимит и фильмов меньше
     PlaybillManager allPosters = new PlaybillManager();
     allPosters.save(poster1);
     allPosters.save(poster2);
@@ -91,7 +91,7 @@ public class PlayBillManagerTest {
   }
 
   @Test
-  public void testFindLastCustomLimitEqualArray() { //Если лимит равен количеству фильмов в менеджере
+  public void testFindLastCustomLimitEqualArray() { // Если лимит равен количеству фильмов в менеджере
     PlaybillManager allPosters = new PlaybillManager(11);
     allPosters.save(poster1);
     allPosters.save(poster2);
