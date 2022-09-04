@@ -35,6 +35,7 @@ public class PlayBillManagerTest {
 
     Assertions.assertArrayEquals(expectedObverse, allPosters.findAll());
   }
+
   @Test
   public void test() {
     PlaybillManager allPosters = new PlaybillManager();
@@ -57,7 +58,7 @@ public class PlayBillManagerTest {
 
   @Test
   public void testFindLastCustomLimit5() {
-    PlaybillManager allPosters = new PlaybillManager();
+    PlaybillManager allPosters = new PlaybillManager(5);
     allPosters.save(poster1);
     allPosters.save(poster2);
     allPosters.save(poster3);
@@ -71,12 +72,12 @@ public class PlayBillManagerTest {
     allPosters.save(poster11);
 
     PlaybillPoster[] expectedReverseInsertedLastNumberInLimit = {poster11, poster10, poster9, poster8, poster7};
-    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberInLimit, allPosters.findLast(5));
+    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberInLimit, allPosters.findLast());
   }
 
   @Test
   public void testFindLastCustomLimit11() {
-    PlaybillManager allPosters = new PlaybillManager();
+    PlaybillManager allPosters = new PlaybillManager(11);
     allPosters.save(poster1);
     allPosters.save(poster2);
     allPosters.save(poster3);
@@ -89,7 +90,7 @@ public class PlayBillManagerTest {
     allPosters.save(poster10);
     allPosters.save(poster11);
 
-    PlaybillPoster[] expectedReverseInsertedLastNumberOverLimit = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
-    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberOverLimit, allPosters.findLast(11));
+    PlaybillPoster[] expectedReverseInsertedLastNumberOverLimit = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2, poster1};
+    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberOverLimit, allPosters.findLast());
   }
 }

@@ -2,6 +2,15 @@ package ru.netology;
 
 public class PlaybillManager {
   protected PlaybillPoster[] posters = new PlaybillPoster[0];
+  public int lastNumber;
+
+  public PlaybillManager() {
+    this.lastNumber = 10;
+  }
+
+  public PlaybillManager(int lastNumber) {
+    this.lastNumber = lastNumber;
+  }
 
   public void save(PlaybillPoster poster) {
     PlaybillPoster[] tmp = new PlaybillPoster[posters.length + 1];
@@ -18,22 +27,10 @@ public class PlaybillManager {
     return posters;
   }
 
-  public int lastNumber = 10;
-
   public PlaybillPoster[] findLast() {
     PlaybillPoster[] all = getPosters();
     int resultLength;
     resultLength = lastNumber;
-    PlaybillPoster[] result = new PlaybillPoster[resultLength];
-    for (int i = 0; i < result.length; i++) {
-      result[i] = all[all.length - 1 - i];
-    }
-    return result;
-  }
-
-  public PlaybillPoster[] findLast(int lastNumber) {
-    PlaybillPoster[] all = getPosters();
-    int resultLength = Math.min(lastNumber, 10);
     PlaybillPoster[] result = new PlaybillPoster[resultLength];
     for (int i = 0; i < result.length; i++) {
       result[i] = all[all.length - 1 - i];
