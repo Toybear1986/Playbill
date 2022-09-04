@@ -29,8 +29,7 @@ public class PlaybillManager {
 
   public PlaybillPoster[] findLast() {
     PlaybillPoster[] all = getPosters();
-    int resultLength;
-    resultLength = lastNumber;
+    int resultLength = Math.min(lastNumber, all.length);
     PlaybillPoster[] result = new PlaybillPoster[resultLength];
     for (int i = 0; i < result.length; i++) {
       result[i] = all[all.length - 1 - i];

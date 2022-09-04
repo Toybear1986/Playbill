@@ -17,7 +17,7 @@ public class PlayBillManagerTest {
   PlaybillPoster poster11 = new PlaybillPoster("link11", "Test11", "Боевик", false, 11);
 
   @Test
-  public void testFinAll() {
+  public void testFindAll() {
     PlaybillManager allPosters = new PlaybillManager();
     allPosters.save(poster1);
     allPosters.save(poster2);
@@ -37,7 +37,7 @@ public class PlayBillManagerTest {
   }
 
   @Test
-  public void test() {
+  public void test() { // Если дефолтный лимит и фильмов больше
     PlaybillManager allPosters = new PlaybillManager();
     allPosters.save(poster1);
     allPosters.save(poster2);
@@ -57,7 +57,22 @@ public class PlayBillManagerTest {
   }
 
   @Test
-  public void testFindLastCustomLimit5() {
+  public void testFindLastIfArrayLowThanDefaultLimit() { // Если дефолтный лимит и фильмов больше
+    PlaybillManager allPosters = new PlaybillManager();
+    allPosters.save(poster1);
+    allPosters.save(poster2);
+    allPosters.save(poster3);
+    allPosters.save(poster4);
+    allPosters.save(poster5);
+
+
+
+    PlaybillPoster[] expectedReverseDefaultLastNumber = {poster5, poster4, poster3, poster2, poster1};
+    Assertions.assertArrayEquals(expectedReverseDefaultLastNumber, allPosters.findLast());
+  }
+
+  @Test
+  public void testFindLastCustomLimit5() { // Если лимит меньше количества фильмов в менеджере
     PlaybillManager allPosters = new PlaybillManager(5);
     allPosters.save(poster1);
     allPosters.save(poster2);
@@ -76,7 +91,7 @@ public class PlayBillManagerTest {
   }
 
   @Test
-  public void testFindLastCustomLimit11() {
+  public void testFindLastCustomLimitEqualArray() { //Если лимит равен количеству фильмов в менеджере
     PlaybillManager allPosters = new PlaybillManager(11);
     allPosters.save(poster1);
     allPosters.save(poster2);
@@ -91,6 +106,20 @@ public class PlayBillManagerTest {
     allPosters.save(poster11);
 
     PlaybillPoster[] expectedReverseInsertedLastNumberOverLimit = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2, poster1};
+    Assertions.assertArrayEquals(expectedReverseInsertedLastNumberOverLimit, allPosters.findLast());
+  }
+
+  @Test
+  public void testFindLastIfArrayLowThanLimit() { //Если лимит больше чем фильмов в менеджере
+    PlaybillManager allPosters = new PlaybillManager(11);
+    allPosters.save(poster1);
+    allPosters.save(poster2);
+    allPosters.save(poster3);
+    allPosters.save(poster4);
+    allPosters.save(poster5);
+
+
+    PlaybillPoster[] expectedReverseInsertedLastNumberOverLimit = {poster5, poster4, poster3, poster2, poster1};
     Assertions.assertArrayEquals(expectedReverseInsertedLastNumberOverLimit, allPosters.findLast());
   }
 }
