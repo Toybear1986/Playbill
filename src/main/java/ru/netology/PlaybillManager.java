@@ -17,7 +17,7 @@ public class PlaybillManager {
 
   protected PlaybillPoster[] findLast() {
     PlaybillPoster[] all = repo.getItems();
-    int resultLength = limit;
+    int resultLength = Math.min(limit, all.length);
     PlaybillPoster[] reversed = new PlaybillPoster[resultLength];
     for (int i = 0; i < reversed.length; i++) {
       reversed[i] = all[all.length - 1 - i];

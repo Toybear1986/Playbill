@@ -23,7 +23,41 @@ public class PlayBillManagerTest {
   PlaybillPoster poster11 = new PlaybillPoster("link11", "Test11", "Боевик", false, 11);
 
   @Test
-  public void managerVariablesTest() {
+  public void managerDefaultLimitWithArrayMoreThanLimit() { // Дефолтный лимит и фильмов больше
+    repo.save(poster1);
+    repo.save(poster2);
+    repo.save(poster3);
+    repo.save(poster4);
+    repo.save(poster5);
+    repo.save(poster6);
+    repo.save(poster7);
+    repo.save(poster8);
+    repo.save(poster9);
+    repo.save(poster10);
+    repo.save(poster11);
+
+    PlaybillManager manager = new PlaybillManager(repo);
+    PlaybillPoster[] expectedArray = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
+
+    Assertions.assertArrayEquals(expectedArray, manager.findLast());
+  }
+
+  @Test
+  public void testFindLastIfArrayLowThanDefaultLimit() { // Если дефолтный лимит и фильмов меньше
+    repo.save(poster1);
+    repo.save(poster2);
+    repo.save(poster3);
+    repo.save(poster4);
+    repo.save(poster5);
+
+    PlaybillManager manager = new PlaybillManager(repo);
+    PlaybillPoster[] expectedArray = {poster5, poster4, poster3, poster2, poster1};
+
+    Assertions.assertArrayEquals(expectedArray, manager.findLast());
+  }
+
+  @Test
+  public void managerLimit9WithArrayMoreThanLimit() { // Если лимит меньше количества фильмов в менеджере
     repo.save(poster1);
     repo.save(poster2);
     repo.save(poster3);
@@ -37,15 +71,42 @@ public class PlayBillManagerTest {
     repo.save(poster11);
 
     PlaybillManager manager = new PlaybillManager(9, repo);
-    PlaybillPoster[] expectedArray9 = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3};
-    PlaybillPoster[] actualArray9 = manager.findLast();
+    PlaybillPoster[] expectedArray = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3};
 
-    Assertions.assertArrayEquals(expectedArray9, actualArray9);
+    Assertions.assertArrayEquals(expectedArray, manager.findLast());
+  }
 
-    PlaybillManager manager2 = new PlaybillManager(repo);
-    PlaybillPoster[] expectedArray10 = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2};
-    PlaybillPoster[] actualArray10 = manager2.findLast();
-    Assertions.assertArrayEquals(expectedArray10, actualArray10);
+  @Test
+  public void testFindLastCustomLimitEqualArray() { // Если лимит равен количеству фильмов в менеджере
+    repo.save(poster1);
+    repo.save(poster2);
+    repo.save(poster3);
+    repo.save(poster4);
+    repo.save(poster5);
+    repo.save(poster6);
+    repo.save(poster7);
+    repo.save(poster8);
+    repo.save(poster9);
+    repo.save(poster10);
+    repo.save(poster11);
+
+    PlaybillManager manager = new PlaybillManager(11, repo);
+    PlaybillPoster[] expectedArray = {poster11, poster10, poster9, poster8, poster7, poster6, poster5, poster4, poster3, poster2, poster1};
+    Assertions.assertArrayEquals(expectedArray, manager.findLast());
+
+  }
+
+  @Test
+  public void testFindLastIfArrayLowThanLimit() { //Если лимит больше чем фильмов в менеджере
+    repo.save(poster1);
+    repo.save(poster2);
+    repo.save(poster3);
+    repo.save(poster4);
+    repo.save(poster5);
+
+    PlaybillManager manager = new PlaybillManager(11, repo);
+    PlaybillPoster[] expectedArray = {poster5, poster4, poster3, poster2, poster1};
+    Assertions.assertArrayEquals(expectedArray, manager.findLast());
   }
 
   @Test
